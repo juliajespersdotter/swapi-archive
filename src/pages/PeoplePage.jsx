@@ -10,16 +10,18 @@ import '../App.css'
 const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(null)
+	const [loading, setLoading] = useState(false)
 	const [pageNum, setPageNum] = useState(null)
 
 	const getPeople = async (page) => {
 		// Get todos from api
-		// setPage(page)
+		setLoading(true)
 		const data = await swapiAPI.getPeople(page)
         console.log('people data:', data)
 
 		// update people state
 		setPeople(data)
+		setLoading(false)
 	}
     // Get people from api when component is first mounted
 	useEffect(() => {
@@ -33,9 +35,11 @@ const PeoplePage = () => {
     return ( 
         <>
         <h1>People</h1>
+		{loading && (<div className="mt-4">Loading...</div>)}		
 
 		{people && (
 			<div id="people">
+
 
 			{people.results.map(result => (
 				<Card style={{ width: '22rem' }}>
