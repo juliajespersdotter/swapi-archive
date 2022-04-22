@@ -5,16 +5,19 @@ import axios from 'axios'
 
 const BASE_URL = 'https://swapi.dev/api/'
 
-// eslint-disable-next-line no-unused-vars
-const sleep = async delay => new Promise(r => setTimeout(r, delay))
-
 /**
  * Get People
  */
-const getPeople = async () => {
-	const res = await axios.get(`${BASE_URL}/people/`)
-	console.log('People:', res)
-	return res.data
+const getPeople = async (pageURL = null) => {
+	if(pageURL){
+		const res = await axios.get(`${pageURL}`)
+		return res.data
+	}
+	else{
+		const res = await axios.get(`${BASE_URL}/people/`)
+		console.log('People:', res)
+		return res.data
+	}
 }
 
 /**
