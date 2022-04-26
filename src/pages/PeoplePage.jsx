@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 // import { Link } from 'react-router-dom'
 import swapiAPI from "../services/swapiAPI";
+import { getIdFromUrl } from '../helpers/getIdFromUrl'
+import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
@@ -11,6 +13,7 @@ const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(null)
 	const [loading, setLoading] = useState(false)
+	const navigate = useNavigate()
 	// const [pageNum, setPageNum] = useState(null)
 
 	const getPeople = async (page) => {
@@ -23,9 +26,15 @@ const PeoplePage = () => {
 		setPeople(data)
 		setLoading(false)
 	}
+
+	const getPerson = async (url) => {
+        const personID = await getIdFromUrl(url)
+
+        navigate(`/people/${personID}`)
+    }
+
     // Get people from api when component is first mounted
 	useEffect(() => {
-		setPeople(null)
 		getPeople(page)
 	}, [page])
 
@@ -53,7 +62,9 @@ const PeoplePage = () => {
 						<ListGroup.Item>Born: {result.birth_year}</ListGroup.Item>
 						<ListGroup.Item>Appears in: {result.films.length} films</ListGroup.Item>
 					</ListGroup>
-						<Button variant="dark">Read more</Button>
+						<Button variant="dark"
+							onClick={() => getPerson(result.url)}
+						>Read more</Button>
 					</Card.Body>
 				</Card>
 			))}

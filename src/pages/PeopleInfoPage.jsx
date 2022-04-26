@@ -9,57 +9,61 @@ import { getIdFromUrl } from '../helpers/getIdFromUrl'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
-const FilmInfoPage = () => {
-    const [film, setFilm] = useState()
+const PeopleInfoPage = () => {
+    const [person, setPerson] = useState()
     const [loading, setLoading] = useState(false)
-    const [characters, setCharacters] = useState([])
+    const [films, setFilms] = useState([])
     const { id } = useParams()
     const navigate = useNavigate()
-    console.log("id: ", id)
+    // console.log("id: ", id)
 
-    const getFilm = async (id) => {
+    const getPerson = async (id) => {
         setLoading(true)
 
-        const data = await swapiAPI.get(`/films/${id}`)
-        // console.log("Film: ", data)
+        const data = await swapiAPI.get(`/people/${id}`)
+        // console.log("Person: ", data)
         
-        setFilm(data)
-        setCharacters(data.characters)
+        setPerson(data)
+        setFilms(data.films)
 
         // console.log('characters: ', characters)
         setLoading(false)
     }
 
     useEffect(() => {
-		getFilm(id)
+		getPerson(id)
 	}, [id])
 
     const back = () => {
-        navigate('/films')
+        navigate('/people')
     }
 
     return ( 
         <>
         {loading && (<div className="mt-4">Loading...</div>)}
 
-        {film && (
+        {person && (
             <Card style={{ width: '80%'}}>
-                <Card.Header as="h3">{film.title}</Card.Header>
+                <Card.Header as="h3">{person.name}</Card.Header>
                 <Card.Body>
                 <Card.Title>Attributes</Card.Title>
                 <ListGroup 
                     variant="flush"
                     className="mb-4">
-                    <ListGroup.Item>Episode: {film.episode_id}</ListGroup.Item>
-                    <ListGroup.Item>Director: {film.director}</ListGroup.Item>
-                    <ListGroup.Item>Producer: {film.producer}</ListGroup.Item>
-                    <ListGroup.Item>Release date: {film.release_date}</ListGroup.Item>
+                    <ListGroup.Item>Gender: {person.gender}</ListGroup.Item>
+                    <ListGroup.Item>Birth year: {person.birth_year}</ListGroup.Item>
+                    <ListGroup.Item>Height: {person.height}</ListGroup.Item>
+                    <ListGroup.Item>Mass: {person.mass}</ListGroup.Item>
+                    <ListGroup.Item>Hair color: {person.hair_color}</ListGroup.Item>
+                    <ListGroup.Item>Skin color: {person.skin_color}</ListGroup.Item>
+                    <ListGroup.Item>Eye color: {person.eye_color}</ListGroup.Item>
                 </ListGroup>
                 <Card.Title>Links</Card.Title>
+                <p>Films</p>
                     <>
-                    {characters.map(character => (
-                        <ul id="character-links">
-                            <Link to={`/people/${getIdFromUrl(character)}`}>Character {getIdFromUrl(character)}</Link>
+                    {films.map(film => (
+                        <ul id="film-links">
+                            <Link to={`/films/${getIdFromUrl(film)}`}>Film {getIdFromUrl(film)}</Link>
                         </ul>
                     ))}
                     </>
@@ -73,4 +77,4 @@ const FilmInfoPage = () => {
      );
 }
  
-export default FilmInfoPage;
+export default PeopleInfoPage;

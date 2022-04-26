@@ -16,8 +16,6 @@ const FilmsPage = () => {
 	// const [pageNum, setPageNum] = useState(null)
     // const { id } = useParams()
 	const navigate = useNavigate()
-    // const [clickedFilm, setClickedFilm] = useState(null)
-    // const [filmId, setFilmId] = useState(null)
 
 	const getFilms = async (page) => {
 		setLoading(true)
