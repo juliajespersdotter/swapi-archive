@@ -21,28 +21,18 @@ const FilmInfoPage = () => {
         setLoading(true)
 
         const data = await swapiAPI.get(`/films/${id}`)
-        console.log("Film: ", data)
-
-        // getCharacterIds(data.characters)
-        data.characters.forEach(character => {
-            setCharacters(character)
-        })
-
+        // console.log("Film: ", data)
+        
         setFilm(data)
-        console.log('characters: ', characters)
-        setLoading(false)
-    }
+        setCharacters(data.characters)
 
-    const getCharacterIds = (characters) => {
-        characters.forEach((character) => {
-            return getIdFromUrl(character)
-            // setCharacters(characterId)
-        })
+        // console.log('characters: ', characters)
+        setLoading(false)
     }
 
     useEffect(() => {
 		getFilm(id)
-	}, [])
+	}, [id])
 
     const back = () => {
         navigate('/films')
@@ -58,16 +48,21 @@ const FilmInfoPage = () => {
                 <Card.Body>
                 <Card.Title>Attributes</Card.Title>
                 <ListGroup 
-                    variant="flush">
+                    variant="flush"
+                    className="mb-4">
                     <ListGroup.Item>Episode: {film.episode_id}</ListGroup.Item>
                     <ListGroup.Item>Director: {film.director}</ListGroup.Item>
                     <ListGroup.Item>Producer: {film.producer}</ListGroup.Item>
                     <ListGroup.Item>Release date: {film.release_date}</ListGroup.Item>
                 </ListGroup>
                 <Card.Title>Links</Card.Title>
-                    {getCharacterIds().map(id => {
-                        return <a as={Link} to={`/people/${id}`}>Character {id}</a>
-                    })}
+                    <>
+                    {characters.map(character => (
+                        <ul id="character-links">
+                            <li><a href={character}>Character {getIdFromUrl(character)}</a></li>
+                        </ul>
+                    ))}
+                    </>
                     <Button variant="dark"
                         onClick={() => back()}
                     >Go Back</Button>
