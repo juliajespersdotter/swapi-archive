@@ -7,7 +7,7 @@ export const getIdFromUrl = (url) => {
         .replace('https://swapi.dev/api/', '')
         .slice(0, -1)
         .split('/')
-
+        console.log(id)
         return id
 }
 

@@ -3,34 +3,28 @@
  */
 import axios from 'axios'
 
-const BASE_URL = 'https://swapi.dev/api/'
+axios.defaults.baseURL = 'https://swapi.dev/api/'
 
-/**
- * Get People
- */
-const getPeople = async (pageURL = null) => {
+const get = async(endpoint, pageURL = null) => {
 	if(pageURL){
 		const res = await axios.get(`${pageURL}`)
 		return res.data
-	}
-	else{
-		const res = await axios.get(`${BASE_URL}/people/`)
-		console.log('People:', res)
-		return res.data
-	}
+	} 
+    const res = await axios.get(endpoint)
+    return res.data
 }
 
 /**
- * Get all Films
+ * 
+ * @param {string} query Search query to search for
+ * @param {number} page Page of search results to get
+ * @returns Promise
  */
-const getFilms = async (id) => {
-	const res = await axios.get(`${BASE_URL}/films/`)
-	console.log('Films:', res)
-	return res.data
+ export const search = async (query, page) => {
+    return get(`/search?query=${query}&tags=story&page=${page}`)
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-	getFilms,
-	getPeople
+	get,
 }

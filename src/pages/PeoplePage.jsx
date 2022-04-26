@@ -11,12 +11,12 @@ const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const [pageNum, setPageNum] = useState(null)
+	// const [pageNum, setPageNum] = useState(null)
 
 	const getPeople = async (page) => {
-		// Get todos from api
+		// Get people from api
 		setLoading(true)
-		const data = await swapiAPI.getPeople(page)
+		const data = await swapiAPI.get('/people/', page)
         console.log('people data:', data)
 
 		// update people state
@@ -25,6 +25,7 @@ const PeoplePage = () => {
 	}
     // Get people from api when component is first mounted
 	useEffect(() => {
+		setPeople(null)
 		getPeople(page)
 	}, [page])
 
@@ -38,14 +39,16 @@ const PeoplePage = () => {
 		{loading && (<div className="mt-4">Loading...</div>)}		
 
 		{people && (
-			<div id="people">
+			<div id="card-wrapper">
 
 
-			{people.results.map(result => (
+			{people.results.map((result, index) => (
 				<Card style={{ width: '22rem' }}>
 					<Card.Header as="h3">{result.name}</Card.Header>
 					<Card.Body>
-					<ListGroup variant="flush">
+					<ListGroup 
+						variant="flush"
+						key={index}>
 						<ListGroup.Item>Gender: {result.gender}</ListGroup.Item>
 						<ListGroup.Item>Born: {result.birth_year}</ListGroup.Item>
 						<ListGroup.Item>Appears in: {result.films.length} films</ListGroup.Item>
@@ -62,15 +65,15 @@ const PeoplePage = () => {
 			<div className="d-flex justify-content-between align-items-center mt-4">
 				<div className="prev">
 					<Button
-						disable={people.previous === null}
+						disabled={people.previous === null}
 						onClick={() => setPage(people.previous)}
 						variant="dark"
 					>Previous Page</Button>
 				</div>
-				<div className="page">{pageNum}</div>
+				<div className="page"></div>
 				<div className="next">
 					<Button
-						disable={people.next === null}
+						disabled={people.next === null}
 						onClick={() => setPage(people.next)}
 						variant="dark"
 					>Next Page</Button>

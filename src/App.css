@@ -7,7 +7,7 @@ h1, h2, h3{
   font-size: 1.7rem;
 }
 
-#people {
+#card-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

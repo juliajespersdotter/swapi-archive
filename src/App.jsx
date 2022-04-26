@@ -4,6 +4,7 @@ import Navigation from './components/Navigation'
 import PeoplePage from './pages/PeoplePage'
 import FilmsPage from './pages/FilmsPage'
 import HomePage from './pages/HomePage'
+import FilmInfoPage from './pages/FilmInfoPage'
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/" element={<HomePage />} />
 					<Route path="/people" element={<PeoplePage />} />
 					<Route path="/films" element={<FilmsPage />} />
+					<Route path="/films/:id" element={<FilmInfoPage />} />
 				</Routes>
 			</Container>
       
