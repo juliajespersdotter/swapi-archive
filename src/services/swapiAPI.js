@@ -5,13 +5,30 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'https://swapi.dev/api/'
 
-const get = async(endpoint, pageURL = null) => {
-	if(pageURL){
-		const res = await axios.get(`${pageURL}`)
+/*
+const getPeople = async(query = null, page) => {
+	if(query){
+		const res = await axios.get(`${endpoint}/?search=${query}&page=${page}`)
 		return res.data
-	} 
-    const res = await axios.get(endpoint)
-    return res.data
+	} else {
+		const res = await axios.get(`${endpoint}/?page=${page}`)
+		return res.data
+	}
+}*/
+
+const get = async(endpoint, page) => {
+	if(page === 0){
+		const res = await axios.get(endpoint)
+		return res.data
+	} else{
+		const res = await axios.get(`${endpoint}/?page=${page}`)
+		return res.data
+	}
+}
+
+const getSinglePerson = async(id) => {
+	const res = await axios.get(`/people/${id}`)
+	return res.data
 }
 
 /**
@@ -27,4 +44,5 @@ const get = async(endpoint, pageURL = null) => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
 	get,
+	getSinglePerson
 }

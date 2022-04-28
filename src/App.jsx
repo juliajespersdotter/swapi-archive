@@ -18,11 +18,11 @@ function App() {
       <Container className="py-3">
 				<Routes>
 					<Route path="/" element={<HomePage />} />
-					<Route path="/people" element={<PeoplePage />} />
+					<Route exact path="/people" element={<PeoplePage />} />
 					<Route path="/films" element={<FilmsPage />} />
 					<Route path="/films/:id" element={<FilmInfoPage />} />
 					<Route path="/people/:id" element={<PeopleInfoPage />} />
-					<Route path="*" element={<NotFound />} />
+					{/* <Route path="*" element={<NotFound />} /> */}
 				</Routes>
 			</Container>
       

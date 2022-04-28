@@ -15,13 +15,13 @@ const PeopleInfoPage = () => {
     const [films, setFilms] = useState([])
     const { id } = useParams()
     const navigate = useNavigate()
-    // console.log("id: ", id)
+    console.log("id: ", id)
 
     const getPerson = async (id) => {
         setLoading(true)
 
-        const data = await swapiAPI.get(`/people/${id}`)
-        // console.log("Person: ", data)
+        const data = await swapiAPI.getSinglePerson(id)
+        console.log("Person: ", data)
         
         setPerson(data)
         setFilms(data.films)
@@ -33,10 +33,6 @@ const PeopleInfoPage = () => {
     useEffect(() => {
 		getPerson(id)
 	}, [id])
-
-    const back = () => {
-        navigate('/people')
-    }
 
     return ( 
         <>
@@ -68,7 +64,7 @@ const PeopleInfoPage = () => {
                     ))}
                     </>
                     <Button variant="dark"
-                        onClick={() => back()}
+                        onClick={() => navigate(-1)}
                     >Go Back</Button>
                 </Card.Body>
             </Card>

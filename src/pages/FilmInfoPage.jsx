@@ -64,7 +64,7 @@ const FilmInfoPage = () => {
                     ))}
                     </>
                     <Button variant="dark"
-                        onClick={() => back()}
+                        onClick={navigate(-1)}
                     >Go Back</Button>
                 </Card.Body>
             </Card>
