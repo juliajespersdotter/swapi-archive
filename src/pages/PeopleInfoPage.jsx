@@ -57,8 +57,8 @@ const PeopleInfoPage = () => {
                 <Card.Title>Links</Card.Title>
                 <p>Films</p>
                     <>
-                    {films.map(film => (
-                        <ul id="film-links">
+                    {films.map((film, index) => (
+                        <ul id="film-links" key={index}>
                             <Link to={`/films/${getIdFromUrl(film)}`}>Film {getIdFromUrl(film)}</Link>
                         </ul>
                     ))}

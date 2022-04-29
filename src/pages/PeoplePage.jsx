@@ -14,7 +14,7 @@ const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(1)
 	const [loading, setLoading] = useState(false)
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const getPeople = async (page) => {
@@ -29,13 +29,6 @@ const PeoplePage = () => {
 		setPeople(data)
 		setLoading(false)
 	}
-
-	/*
-	const getPerson = async (url) => {
-        const personID = await getIdFromUrl(url)
-		// setPageParams({id: personID})
-        navigate(`/people/${personID}`)
-    }*/
 
 	useEffect(() => {
 		if(page === null){
@@ -57,7 +50,9 @@ const PeoplePage = () => {
 				<div id="card-wrapper">
 
 				{people.results.map((result, index) => (
-					<Card style={{ width: '22rem' }}>
+					<Card style={{ width: '22rem' }}
+						key={index}
+					>
 						<Card.Header as="h3">{result.name}</Card.Header>
 						<Card.Body>
 						<ListGroup 
@@ -91,7 +86,7 @@ const PeoplePage = () => {
 						variant="dark"
 					>Previous Page</Button>
 				</div>
-				<div className="page">{page + 1}</div>
+				<div className="page">{page}</div>
 				<div className="next">
 					<Button
 						disabled={people.next === null}

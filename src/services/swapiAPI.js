@@ -17,7 +17,7 @@ const getPeople = async(query = null, page) => {
 }*/
 
 const get = async(endpoint, page) => {
-	if(page === 0){
+	if(!page){
 		const res = await axios.get(endpoint)
 		return res.data
 	} else{

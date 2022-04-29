@@ -57,14 +57,14 @@ const FilmInfoPage = () => {
                 </ListGroup>
                 <Card.Title>Links</Card.Title>
                     <>
-                    {characters.map(character => (
-                        <ul id="character-links">
+                    {characters.map((character, index) => (
+                        <ul id="character-links" key={index}>
                             <Link to={`/people/${getIdFromUrl(character)}`}>Character {getIdFromUrl(character)}</Link>
                         </ul>
                     ))}
                     </>
                     <Button variant="dark"
-                        onClick={navigate(-1)}
+                        onClick={() => navigate(-1)}
                     >Go Back</Button>
                 </Card.Body>
             </Card>
