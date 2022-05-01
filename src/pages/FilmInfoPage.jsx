@@ -32,7 +32,7 @@ const FilmInfoPage = () => {
 
         {film && (
             <Film 
-                film={film}
+                data={film}
             />
         )}
         </>

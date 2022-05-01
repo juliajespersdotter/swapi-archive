@@ -39,8 +39,8 @@ const PeopleInfoPage = () => {
         {loading && (<div className="mt-4">Loading...</div>)}
 
         {person && (
-            <Card style={{ width: '80%'}}>
-                <Card.Header as="h3">{person.name}</Card.Header>
+            <Card class="card" border="warning">
+                <Card.Header className="card-header" as="h3">{person.name}</Card.Header>
                 <Card.Body>
                 <Card.Title>Attributes</Card.Title>
                 <ListGroup 

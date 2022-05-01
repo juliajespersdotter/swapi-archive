@@ -5,35 +5,49 @@ import { getIdFromUrl } from '../helpers/getIdFromUrl'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
+import { ListGroupItem } from 'react-bootstrap'
 
-const Film = ({ film }) => {
+const Film = ({ data }) => {
     const [characters, setCharacters] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        setCharacters(film.characters)
-    }, [film])
+        setCharacters(data.characters)
+    }, [data])
 
 
     return ( 
-        <Card style={{ width: '80%'}}>
-            <Card.Header as="h3">{film.title}</Card.Header>
+        <Card className="card" border='warning'>
+            <Card.Header class="card-header" as="h3">{data.title}</Card.Header>
             <Card.Body>
             <Card.Title>Attributes</Card.Title>
+            <div className='d-flex justify-content-between'>
             <ListGroup 
                 variant="flush"
                 className="mb-4">
-                <ListGroup.Item>Episode: {film.episode_id}</ListGroup.Item>
-                <ListGroup.Item>Director: {film.director}</ListGroup.Item>
-                <ListGroup.Item>Producer: {film.producer}</ListGroup.Item>
-                <ListGroup.Item>Release date: {film.release_date}</ListGroup.Item>
+                <ListGroup.Item>Episode:</ListGroup.Item>
+                <ListGroup.Item>Director: </ListGroup.Item>
+                <ListGroup.Item>Producer:</ListGroup.Item>
+                <ListGroup.Item>Release date:</ListGroup.Item>
             </ListGroup>
+
+            <ListGroup
+                variant="flush"
+                className="mb-4">
+                <ListGroup.Item>{data.episode_id}</ListGroup.Item>
+                <ListGroup.Item>{data.director}</ListGroup.Item>
+                <ListGroup.Item>{data.producer}</ListGroup.Item>
+                <ListGroup.Item>{data.release_date}</ListGroup.Item>
+            </ListGroup>
+            </div>
+
             <Card.Title>Links</Card.Title>
+            <p>Characters</p>
                 <>
                 {characters.map((character, index) => (
-                    <ul id="character-links" key={index}>
-                        <Link to={`/people/${getIdFromUrl(character)}`}>Character {getIdFromUrl(character)}</Link>
-                    </ul>
+                    <ListGroup id="links" key={index}>
+                        <ListGroup.Item><Link to={`/people/${getIdFromUrl(character)}`}>Character {getIdFromUrl(character)}</Link></ListGroup.Item>
+                    </ListGroup>
                 ))}
                 </>
                 <Button variant="dark"

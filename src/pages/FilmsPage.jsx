@@ -42,14 +42,16 @@ const FilmsPage = () => {
 		{loading && (<div className="mt-4">Loading...</div>)}		
 
 		{films && (
+			<>
+			<p className="text-center text-white">{films.count} results...</p>
 			<div id="card-wrapper">
 
-
 			{films.results.map(result => (
-				<Card style={{ width: '22rem'}}
-				key={result.episode_id}
+				<Card className="card-small"
+					border='warning'
+					key={result.episode_id}
 				>
-					<Card.Header as="h3">{result.title}</Card.Header>
+					<Card.Header className="card-header" as="h3">{result.title}</Card.Header>
 					<Card.Body>
 					<ListGroup 
                         variant="flush">
@@ -69,6 +71,7 @@ const FilmsPage = () => {
 			))}
 
 			</div>
+			</>
 		)}
 		
 		{films && (

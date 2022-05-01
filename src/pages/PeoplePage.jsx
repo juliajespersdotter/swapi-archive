@@ -46,14 +46,15 @@ const PeoplePage = () => {
 
 		{people && (
 			<>
-			<p className="text-center">{people.count} results...</p>
+			<p className="text-center text-white">{people.count} results...</p>
 				<div id="card-wrapper">
 
 				{people.results.map((result, index) => (
-					<Card style={{ width: '22rem' }}
+					<Card className="card-small"
+						border='warning'
 						key={index}
 					>
-						<Card.Header as="h3">{result.name}</Card.Header>
+						<Card.Header class="card-header" as="h3">{result.name}</Card.Header>
 						<Card.Body>
 						<ListGroup 
 							variant="flush"
