@@ -22,7 +22,7 @@ function App() {
 					<Route path="/films" element={<FilmsPage />} />
 					<Route path="/films/:id" element={<FilmInfoPage />} />
 					<Route path="/people/:id" element={<PeopleInfoPage />} />
-					{/* <Route path="*" element={<NotFound />} /> */}
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Container>
       
