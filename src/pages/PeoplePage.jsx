@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { Link } from 'react-router-dom'
 import swapiAPI from "../services/swapiAPI";
 import { getIdFromUrl } from '../helpers/getIdFromUrl'
-import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
@@ -14,7 +15,6 @@ const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(1)
 	const [loading, setLoading] = useState(false)
-	// const navigate = useNavigate()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const getPeople = async (page) => {
@@ -42,40 +42,42 @@ const PeoplePage = () => {
     return ( 
         <>
         <h1>People</h1>
-		{loading && (<div className="mt-4">Loading...</div>)}		
+		{loading && (<div className="mt-4 text-white">Loading...</div>)}		
 
 		{people && (
-			<>
+		<>
 			<p className="text-center text-white">{people.count} results...</p>
-				<div id="card-wrapper">
-
-				{people.results.map((result, index) => (
-					<Card className="card-small"
-						border='warning'
-						key={index}
-					>
-						<Card.Header class="card-header" as="h3">{result.name}</Card.Header>
-						<Card.Body>
-						<ListGroup 
-							variant="flush"
+			<div id="card-wrapper">
+				<Row xs={1} md={2} className="g-4">
+					{people.results.map((result, index) => (
+						<Col key={index}>
+							<Card className="card-small"
+								border='warning'
+								key={index}
 							>
-							<ListGroup.Item>Gender: {result.gender}</ListGroup.Item>
-							<ListGroup.Item>Born: {result.birth_year}</ListGroup.Item>
-							<ListGroup.Item>Appears in: {result.films.length} films</ListGroup.Item>
-						</ListGroup>
-						<Link 
-							className="btn btn-dark"
-							role="button"
-							to={`/people/${getIdFromUrl(result.url)}`}
-							> 
-							Read more
-						</Link>
-						</Card.Body>
-					</Card>
-				))}
-
-				</div>
-			</>
+								<Card.Header className="card-header" as="h3">{result.name}</Card.Header>
+								<Card.Body>
+								<ListGroup 
+									variant="flush"
+									>
+									<ListGroup.Item>Gender: {result.gender}</ListGroup.Item>
+									<ListGroup.Item>Born: {result.birth_year}</ListGroup.Item>
+									<ListGroup.Item>Appears in: {result.films.length} films</ListGroup.Item>
+								</ListGroup>
+								<Link 
+									className="btn btn-dark"
+									role="button"
+									to={`/people/${getIdFromUrl(result.url)}`}
+									> 
+									Read more
+								</Link>
+								</Card.Body>
+							</Card>
+						</Col>
+					))}
+				</Row>
+			</div>
+		</>
 		)}
 		
 		{people && (
