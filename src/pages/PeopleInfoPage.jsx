@@ -13,7 +13,7 @@ const PeopleInfoPage = () => {
     const getPerson = async (id) => {
         setLoading(true)
 
-        const data = await swapiAPI.getSinglePerson(id)
+        const data = await swapiAPI.get(`/people/${id}`)
         
         setPerson(data)
 

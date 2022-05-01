@@ -3,39 +3,57 @@ import { useSearchParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import swapiAPI from "../services/swapiAPI";
 import PeopleCard from '../components/PeopleCard'
+import Search from '../components/Search'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
 const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(1)
+	// const [query, setQuery] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	const getPeople = async (page) => {
+	const query = searchParams.get('search')
+
+	const getPeople = async (page, query=null) => {
 		setLoading(true)
 		setPeople(null)
 
-		const data = await swapiAPI.get('/people', page)
-        // console.log('people data:', data)
-		
+		if(query) {
+			console.log('query', query)
+			const data = await swapiAPI.search(`/people`, query, page)
+			console.log('search data', data)
+
+			setSearchParams({ search: query, page: page })
+			setPeople(data)
+		} else{
+			const data = await swapiAPI.get('/people', page)
+			setPeople(data)
+			setSearchParams({ page: page })
+		}
 		// update people state
-		setSearchParams({ page: page })
-		setPeople(data)
+		// setPeople(data)
 		setLoading(false)
 	}
 
 	useEffect(() => {
+		console.log('page in people:', page)
 		if(page === null){
 			return
 		}
-		getPeople(page)
-	}, [page])
+		getPeople(page, query)
+	}, [page, query])
 
 	
 
     return ( 
         <>
+		<Search 
+			resource='people'
+			getSearchResults={getPeople}
+		/>
+
         <h1>People</h1>
 		{loading && (<div className="mt-4 text-white">Loading...</div>)}		
 
