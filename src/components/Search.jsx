@@ -23,8 +23,8 @@ const Search = ({ resource, getSearchResults }) => {
 		queryRef.current = searchInput
 
         console.log('search page:', page)
+		setSearchParams({ search: searchInput, page: page })
 		setPage(1)
-		setSearchParams({ query: searchInput })
 	}
 
 	useEffect(() => {

@@ -38,6 +38,10 @@ const PeoplePage = () => {
 	}
 
 	useEffect(() => {
+		setPage(1)
+	}, [query])
+
+	useEffect(() => {
 		console.log('page in people:', page)
 		if(page === null){
 			return
