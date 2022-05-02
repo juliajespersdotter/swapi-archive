@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useSearchParams } from 'react-router-dom'
@@ -12,7 +12,7 @@ const Search = ({ resource, getSearchResults }) => {
 
     const query = searchParams.get('query')
 
-	const handleSubmit = async e => {
+	const handleSubmit = useCallback(async e => {
 		e.preventDefault()
 
 		if (!searchInput.length) {
@@ -23,7 +23,7 @@ const Search = ({ resource, getSearchResults }) => {
 
 		setSearchParams({ search: searchInput, page: page })
 		setPage(1)
-	}
+	}, [setSearchParams, page, searchInput])
 
 	useEffect(() => {
 		if (!query) {
@@ -32,7 +32,7 @@ const Search = ({ resource, getSearchResults }) => {
 		}
 
 		getSearchResults(page, query)
-	}, [query, page])
+	}, [query, page, getSearchResults])
 
     return ( 
         <>
