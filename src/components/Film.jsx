@@ -20,7 +20,7 @@ const Film = ({ data }) => {
             <Card.Header className="card-header" as="h3">{data.title}</Card.Header>
             <Card.Body>
                 <Card.Title>Attributes</Card.Title>
-                <div className='d-flex justify-content-between w-50'>
+                <div className='d-flex justify-content-between w-75'>
                 <ul 
                     className="mb-4 p-0">
                     <li>Episode:</li>
