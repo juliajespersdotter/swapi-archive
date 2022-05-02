@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import swapiAPI from "../services/swapiAPI";
@@ -16,7 +16,7 @@ const PeoplePage = () => {
 
 	const query = searchParams.get('search')
 
-	const getPeople = async (page, query=null) => {
+	const getPeople = useCallback(async (page, query=null) => {
 		setLoading(true)
 		setPeople(null)
 
@@ -32,7 +32,7 @@ const PeoplePage = () => {
 		}
 
 		setLoading(false)
-	}
+	}, [setSearchParams])
 
 	useEffect(() => {
 		setPage(1)
@@ -43,7 +43,7 @@ const PeoplePage = () => {
 			return
 		}
 		getPeople(page, query)
-	}, [page, query])
+	}, [page, query, getPeople])
 
     return ( 
         <>

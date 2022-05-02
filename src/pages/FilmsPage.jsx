@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Button from 'react-bootstrap/Button'
 import swapiAPI from '../services/swapiAPI';
 import { useSearchParams } from 'react-router-dom'
@@ -16,7 +16,7 @@ const FilmsPage = () => {
 
 	const query = searchParams.get('search')
 
-	const getFilms = async (page, query) => {
+	const getFilms = useCallback(async (page, query) => {
 		setLoading(true)
 		setFilms(null)
 
@@ -32,7 +32,7 @@ const FilmsPage = () => {
 		}
 
 		setLoading(false)
-	}
+	}, [setSearchParams])
 
 	useEffect(() => {
 		setPage(1)
@@ -43,7 +43,7 @@ const FilmsPage = () => {
 			return
 		}
 		getFilms(page, query)
-	}, [page, query])
+	}, [page, query, getFilms])
 
     return ( 
         <>
