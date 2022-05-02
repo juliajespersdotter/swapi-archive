@@ -29,13 +29,6 @@ const search = async (endpoint, query, page) => {
 		const res = await axios.get(`${endpoint}/?search=${query}&page=${page}`)
 		return res.data
 	}
-
-	
-	// else {
-	// 	const res = await axios.get(`${endpoint}/?search=${query}`)
-	// 	return res.data
-	// }
-	//https://swapi.dev/api/people/?search=r2 
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -20,36 +20,34 @@ const Film = ({ data }) => {
             <Card.Header className="card-header" as="h3">{data.title}</Card.Header>
             <Card.Body>
                 <Card.Title>Attributes</Card.Title>
-                <div className='d-flex justify-content-between'>
-                <ListGroup 
-                    variant="flush"
-                    className="mb-4">
-                    <ListGroup.Item>Episode:</ListGroup.Item>
-                    <ListGroup.Item>Director: </ListGroup.Item>
-                    <ListGroup.Item>Producer:</ListGroup.Item>
-                    <ListGroup.Item>Release date:</ListGroup.Item>
-                </ListGroup>
+                <div className='d-flex justify-content-between w-50'>
+                <ul 
+                    className="mb-4 p-0">
+                    <li>Episode:</li>
+                    <li>Director: </li>
+                    <li>Producer:</li>
+                    <li>Release date:</li>
+                </ul>
 
-                <ListGroup
-                    variant="flush"
-                    className="mb-4">
-                    <ListGroup.Item>{data.episode_id}</ListGroup.Item>
-                    <ListGroup.Item>{data.director}</ListGroup.Item>
-                    <ListGroup.Item>{data.producer}</ListGroup.Item>
-                    <ListGroup.Item>{data.release_date}</ListGroup.Item>
-                </ListGroup>
+                <ul
+                    className="mb-4 bold">
+                    <li>{data.episode_id}</li>
+                    <li>{data.director}</li>
+                    <li>{data.producer}</li>
+                    <li>{data.release_date}</li>
+                </ul>
                 </div>
 
                 <Card.Title>Links</Card.Title>
                 <p>Characters</p>
                     <>
                     {characters.map((character, index) => (
-                        <ListGroup id="links" key={index}>
+                        <ListGroup className="links" key={index}>
                             <ListGroup.Item><Link to={`/people/${getIdFromUrl(character)}`}>Character {getIdFromUrl(character)}</Link></ListGroup.Item>
                         </ListGroup>
                     ))}
                     </>
-                    <Button variant="dark"
+                    <Button variant="dark mt-5"
                         onClick={() => navigate(-1)}
                     >Go Back</Button>
             </Card.Body>

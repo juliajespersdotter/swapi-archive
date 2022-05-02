@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import swapiAPI from '../services/swapiAPI';
-import 'bootstrap/dist/css/bootstrap.css'
 import Film from '../components/Film'
+import Loading from '../components/Loading';
+import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
 const FilmInfoPage = () => {
@@ -14,11 +15,9 @@ const FilmInfoPage = () => {
         setLoading(true)
 
         const data = await swapiAPI.get(`/films/${id}`)
-        // console.log("Film: ", data)
         
         setFilm(data)
 
-        // console.log('characters: ', characters)
         setLoading(false)
     }
 
@@ -28,7 +27,9 @@ const FilmInfoPage = () => {
 
     return ( 
         <>
-        {loading && (<div className="mt-4">Loading...</div>)}
+        {loading && (
+            <Loading/>
+        )}
 
         {film && (
             <Film 

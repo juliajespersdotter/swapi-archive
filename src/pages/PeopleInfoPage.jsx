@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import swapiAPI from '../services/swapiAPI';
 import Person from '../components/Person'
+import Loading from '../components/Loading';
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
@@ -26,7 +27,9 @@ const PeopleInfoPage = () => {
 
     return ( 
         <>
-        {loading && (<div className="mt-4">Loading...</div>)}
+        {loading && (
+            <Loading/>
+        )}
 
         {person && (
             <Person 

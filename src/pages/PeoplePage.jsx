@@ -21,11 +21,13 @@ const PeoplePage = () => {
 		setPeople(null)
 
 		if(query) {
+			// if query, search the api
 			const data = await swapiAPI.search(`/people`, query, page)
 
 			setSearchParams({ search: query, page: page })
 			setPeople(data)
 		} else{
+			// else use the get api function
 			const data = await swapiAPI.get('/people', page)
 			setPeople(data)
 			setSearchParams({ page: page })
@@ -48,6 +50,7 @@ const PeoplePage = () => {
     return ( 
         <>
 		<Search 
+			// search component
 			resource='people'
 			getSearchResults={getPeople}
 		/>
@@ -58,10 +61,12 @@ const PeoplePage = () => {
 
         <h1>People</h1>
 		{loading && (
+			// loading component
 			<Loading />
 		)}		
 
 		{people && (
+			// people card component
 			<PeopleCard 
 				data={people}
 			/>

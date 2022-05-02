@@ -21,11 +21,13 @@ const FilmsPage = () => {
 		setFilms(null)
 
 		if(query) {
+			// if query, search the api
 			const data = await swapiAPI.search(`/films`, query, page)
 
 			setSearchParams({ search: query, page: page })
 			setFilms(data)
 		} else{
+			// else use get api function
 			const data = await swapiAPI.get('/films', page)
 			setFilms(data)
 			setSearchParams({ page: page })
