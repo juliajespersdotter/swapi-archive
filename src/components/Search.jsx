@@ -5,7 +5,6 @@ import { useSearchParams } from 'react-router-dom'
 
 const Search = ({ resource, getSearchResults }) => {
     const [searchInput, setSearchInput] = useState('')
-	const [searchResult, setSearchResult] = useState(null)
 	const [page, setPage] = useState(1)
 	const [searchParams, setSearchParams] = useSearchParams()
 	const searchInputRef = useRef()
@@ -22,7 +21,6 @@ const Search = ({ resource, getSearchResults }) => {
 
 		queryRef.current = searchInput
 
-        console.log('search page:', page)
 		setSearchParams({ search: searchInput, page: page })
 		setPage(1)
 	}
@@ -30,7 +28,6 @@ const Search = ({ resource, getSearchResults }) => {
 	useEffect(() => {
 		if (!query) {
 			setSearchInput('')
-			setSearchResult(null)
 			return
 		}
 

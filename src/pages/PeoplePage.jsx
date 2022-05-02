@@ -4,13 +4,13 @@ import Button from 'react-bootstrap/Button'
 import swapiAPI from "../services/swapiAPI";
 import PeopleCard from '../components/PeopleCard'
 import Search from '../components/Search'
+import Loading from '../components/Loading';
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
 const PeoplePage = () => {
     const [people, setPeople] = useState(null)
 	const [page, setPage] = useState(1)
-	// const [query, setQuery] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [searchParams, setSearchParams] = useSearchParams()
 
@@ -21,9 +21,7 @@ const PeoplePage = () => {
 		setPeople(null)
 
 		if(query) {
-			console.log('query', query)
 			const data = await swapiAPI.search(`/people`, query, page)
-			console.log('search data', data)
 
 			setSearchParams({ search: query, page: page })
 			setPeople(data)
@@ -32,8 +30,7 @@ const PeoplePage = () => {
 			setPeople(data)
 			setSearchParams({ page: page })
 		}
-		// update people state
-		// setPeople(data)
+
 		setLoading(false)
 	}
 
@@ -42,14 +39,11 @@ const PeoplePage = () => {
 	}, [query])
 
 	useEffect(() => {
-		console.log('page in people:', page)
 		if(page === null){
 			return
 		}
 		getPeople(page, query)
 	}, [page, query])
-
-	
 
     return ( 
         <>
@@ -58,8 +52,14 @@ const PeoplePage = () => {
 			getSearchResults={getPeople}
 		/>
 
+		{query && (
+			<p className='text-white text-center'>Showing results for search query: '{query}'...</p>
+		)}
+
         <h1>People</h1>
-		{loading && (<div className="mt-4 text-white">Loading...</div>)}		
+		{loading && (
+			<Loading />
+		)}		
 
 		{people && (
 			<PeopleCard 

@@ -34,10 +34,16 @@ h1, h2, h3{
 #links {
   width: 50%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 ul {
   list-style-type: none;
   margin-left: 0rem;
+}
+
+img {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
 }

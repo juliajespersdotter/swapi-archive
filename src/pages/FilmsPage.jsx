@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button'
 import swapiAPI from '../services/swapiAPI';
 import { useSearchParams } from 'react-router-dom'
 import FilmsCard from '../components/FilmsCard'
+import Search from '../components/Search';
+import Loading from '../components/Loading';
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 
@@ -10,31 +12,54 @@ const FilmsPage = () => {
     const [films, setFilms] = useState(null)
 	const [page, setPage] = useState(1)
 	const [loading, setLoading] = useState(false)
-	// const [pageNum, setPageNum] = useState(null)
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	const getFilms = async (page) => {
-		setLoading(true)
-		const data = await swapiAPI.get('/films/', page)
-        // console.log('Films data:', data)
+	const query = searchParams.get('search')
 
-		// update people state
-		setSearchParams({ page: page })
-		setFilms(data)
+	const getFilms = async (page, query) => {
+		setLoading(true)
+		setFilms(null)
+
+		if(query) {
+			const data = await swapiAPI.search(`/films`, query, page)
+
+			setSearchParams({ search: query, page: page })
+			setFilms(data)
+		} else{
+			const data = await swapiAPI.get('/films', page)
+			setFilms(data)
+			setSearchParams({ page: page })
+		}
+
 		setLoading(false)
 	}
+
+	useEffect(() => {
+		setPage(1)
+	}, [query])
 
 	useEffect(() => {
 		if(page === null){
 			return
 		}
-		getFilms(page)
-	}, [page])
+		getFilms(page, query)
+	}, [page, query])
 
     return ( 
         <>
+		<Search 
+			resource='films'
+			getSearchResults={getFilms}
+		/>
+
+		{query && (
+			<p className='text-white text-center'>Showing results for search query: '{query}'...</p>
+		)}
+
         <h1>Films</h1>
-		{loading && (<div className="mt-4 text-white">Loading...</div>)}		
+		{loading && (
+			<Loading />
+		)}		
 
 		{films && (
 			<FilmsCard 
